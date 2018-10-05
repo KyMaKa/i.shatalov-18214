@@ -49,7 +49,7 @@ myDrop:: Ord a => Int -> [a] -> [a]
 myDrop 0 (xs) = xs
 myDrop n (x:xs) = myDrop (n-1) xs
 
-
+myTake:: Int -> [a] -> [a]
 myTake n (x:xs) = if n /= 0 then x : myTake (n-1) xs
   else
     []
