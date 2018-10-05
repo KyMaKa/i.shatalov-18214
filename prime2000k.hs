@@ -1,3 +1,4 @@
+-- Mine!! 
 summ n = sumnd n
         where sumnd n = nd' n
               nd' 1 = 0
@@ -14,9 +15,21 @@ summ n = sumnd n
                                       | y == 0 = 0
                                       | otherwise = if y > 1 then mod (x-y) y
                                         else 1
---sumprime = sum primes google
+                                        
+                                        -- This is Google! 
+--sumprime = sum primes 
  -- where
   --  primes = 2 : filter isprime [3,5..2000000]
      --   where
       --    isprime n = all ((/= 0).(mod n)) (takeWhile ((<=n).(^2)) primes)
+      
+      
+-- This mine too!!!
+prime = sum primes
+  where
+    primes = 2 : isprime [3,5..2000000]
+      where
+        isprime [] = []
+        isprime (p:xs) = p : isprime [x | x <- xs, mod x p /= 0]
+
 
