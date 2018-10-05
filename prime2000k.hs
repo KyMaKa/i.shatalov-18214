@@ -14,8 +14,9 @@ summ n = sumnd n
                                       | y == 0 = 0
                                       | otherwise = if y > 1 then mod (x-y) y
                                         else 1
-sumprime = sum primes
-  where
-    primes = 2 : filter isprime [3,5..2000000]
-        where
-          isprime n = all ((/= 0).(mod n)) (takeWhile ((<=n).(^2)) primes)
+--sumprime = sum primes google
+ -- where
+  --  primes = 2 : filter isprime [3,5..2000000]
+     --   where
+      --    isprime n = all ((/= 0).(mod n)) (takeWhile ((<=n).(^2)) primes)
+
