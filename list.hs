@@ -53,3 +53,23 @@ myTake:: Int -> [a] -> [a]
 myTake n (x:xs) = if n /= 0 then x : myTake (n-1) xs
   else
     []
+
+
+-- mySplitAt n (x:xs) = mySplitAt' n (x:xs)
+ -- where
+   -- mySplitAt' n (x:xs) = if n > 1 then mySplitAt'' (x:[]) (x:xs)
+     -- else ys xs
+      -- where
+        -- mySplitAt'' ys (xs) = mySplitAt' (n - 1) xs
+
+myNull:: Ord a => [a] -> Bool
+myNull xs = if xs == [] then True
+  else False
+
+myElem:: Ord a => [a] -> a -> Bool
+myElem (y:xs) x = myElem' (y:xs)
+  where
+    myElem' [] = False
+    myElem' (y:xs) = if x == y then True
+      else
+        myElem' xs
