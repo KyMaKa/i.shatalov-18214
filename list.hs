@@ -73,3 +73,10 @@ myElem (y:xs) x = myElem' (y:xs)
     myElem' (y:xs) = if x == y then True
       else
         myElem' xs
+        
+-- filtr
+
+myMap f (x:xs) = ((f x):myMap' [])
+	where 
+		myMap' ys = if xs /= [] then myMap f xs
+			else ys
