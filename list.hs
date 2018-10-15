@@ -76,6 +76,7 @@ myElem (y:xs) x = myElem' (y:xs)
         
 -- filtr
 
+myMap:: Eq a => (a -> b) -> [a] -> [b]
 myMap f (x:xs) = ((f x):myMap' [])
 	where 
 		myMap' ys = if xs /= [] then myMap f xs
