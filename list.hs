@@ -86,7 +86,7 @@ myElem (y:xs) x = myElem' (y:xs)
       else
         myElem' xs
         
-myFilter test xs = 
+-- myFilter test xs = 
 
 myMap:: Eq a => (a -> b) -> [a] -> [b]
 myMap _ [] = []
