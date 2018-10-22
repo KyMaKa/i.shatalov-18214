@@ -39,3 +39,6 @@ fromDecimal toBase snumber | toBase < 10 = fromDecimal' (read snumber::Int) ""
                          | ys == toBase || ys > toBase = fromDecimal''' (div ys toBase) (show(mod ys toBase)++ss)
                          | ys > 35 = fromDecimal''' (div ys toBase) ((toEnum((mod ys toBase) + 29)::Char) : ss)
                          | otherwise = ((toEnum(ys + 87)::Char) : ss)
+
+converFromTo:: Int -> Int -> String -> String
+converFromTo fromBase toBase snumber = fromDecimal toBase (toDecimal fromBase snumber)
