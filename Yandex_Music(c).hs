@@ -1,9 +1,9 @@
 import Data.Map
 
 -- 1) самый простой способ создать свой тип данных - обычное перечисление
-data MusicBand = Interpol | Blur | CivilDefense | Editors | Brandenburg deriving (Eq, Show, Ord)
+data MusicBand = ClassicBand String Person Person Person Person | SoloBand String Person deriving (Eq, Show, Ord)
 
-
+band_Name = SoloBand "Band_Name" me
 
 -- 2) Через ключевое слово deriving Вы говорите компилятору, чтобы он реализовал за Вас интерфейсы равенства,
 --    порядка и вывода на экран.
@@ -17,22 +17,22 @@ data MusicBand = Interpol | Blur | CivilDefense | Editors | Brandenburg deriving
 -- Еще раз напоминаю: СЛЕВА от равенства - конструктор ТИПА, СПРАВА - конструкторы данных.
 -- Не путайте никогда их и постарайтесь понять разницу, это действительно важно
 
-data Person = Authorized String String MusicBand | NotAuthorized String String deriving Show
+data Person = Authorized String String MusicBand | NotAuthorized String String deriving (Show, Eq, Ord)
 
 getBand::Person->MusicBand
-getBand (Authorized _ _ band) = band
+getBand (Authorized _ _ (band_Name)) = band_Name
 
 type Song = String
 
 me = NotAuthorized "Ivan" "Shatalov"
-sonOfMotherFriend = Authorized "Ivan" "Ivanov" Brandenburg
+sonOfMotherFriend = Authorized "Ivan" "Ivanov" band_Name
 
-getRecomendatedSong::Person->Maybe Song
-getRecomendatedSong person = getBestSong (getBand person) bestSongs
-                             where bestSongs = Data.Map.fromList [(Interpol,"Stay In Touch"), (Editors, "Two Hearted Spider"), (CivilDefense,"Russian Field Of Expirements"),(Brandenburg,"Only You")]
+--getRecomendatedSong::Person->Maybe Song
+--getRecomendatedSong person = getBestSong (getBand person) bestSongs
+--                             where bestSongs = Data.Map.fromList [(Interpol,"Stay In Touch"), (Editors, "Two Hearted Spider"), (CivilDefense,"Russian Field Of Expirements"),(Brandenburg,"Only You")]
                                                                 -- не делайте так, упаси Боже.  Сначала сделайте два списка, а потом напишите zip
 
-getBestSong band songs = Data.Map.lookup band songs
+--getBestSong band songs = Data.Map.lookup band songs
 
 
 
