@@ -1,10 +1,13 @@
 import Data.Char
 toDecimal:: Int -> String -> String
-toDecimal base snumber | base < 10 = show (toDecimal' 1 snumber)
+toDecimal base snumber | base == 1 = show (toDecimal_1 snumber)
+                       | base < 10 = show (toDecimal' 1 snumber)
                        | base > 36 && base < 62 = show (toDecimal''' 1 snumber)
                        | base > 10 && base < 37 = show (toDecimal'' 1 snumber)
                        | otherwise = snumber
           where
+            toDecimal_1 (x:"") = 0
+            toDecimal_1 (x:snumber) = 1+ toDecimal_1 snumber
             toDecimal' _ "" = 0
             toDecimal' n ys = if (fromEnum (head ys)-48) >= 0 && (fromEnum (head ys)-48) < base then (fromEnum (head ys) - 48)*(base^(length(snumber) - n)) + toDecimal' (n+1) (tail ys)
               else error "wrong argument"
@@ -19,11 +22,14 @@ toDecimal base snumber | base < 10 = show (toDecimal' 1 snumber)
                               | otherwise = (fromEnum (head ys) - 48)*(base^(length(snumber) - n)) + toDecimal''' (n+1) (tail ys)
 
 fromDecimal:: Int -> String -> String
-fromDecimal toBase snumber | toBase < 10 = fromDecimal' (read snumber::Int) ""
+fromDecimal toBase snumber | toBase == 1 = fromDecimal_1 (read snumber::Int) ""
+                           | toBase < 10 = fromDecimal' (read snumber::Int) ""
                            | toBase > 36 = fromDecimal''' (read snumber) ""
                            | toBase > 10 && toBase < 37 = fromDecimal'' (read snumber::Int) ""
                            | otherwise = snumber
   where
+    fromDecimal_1 (-1) str = str
+    fromDecimal_1 x str = fromDecimal_1 (x - 1) "1"++str
     fromDecimal' ys ss | ys >= toBase = fromDecimal' (div ys toBase) (show(mod ys toBase)++ss)
                        | otherwise = show ys ++ ss
 
