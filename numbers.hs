@@ -40,7 +40,8 @@ fromDecimal toBase snumber | toBase == 1 = fromDecimal_1 (read snumber::Int) ""
                         | otherwise = ((toEnum(ys + 87)::Char) : ss)
 
     fromDecimal''' 0 ss = ss
-    fromDecimal''' ys ss | ys > toBase && ys >= 10 && ys `mod` toBase >= 10 = fromDecimal''' (div ys toBase) ((toEnum((mod ys toBase) + 87)::Char) : ss)
+    fromDecimal''' ys ss | ys > toBase && ys >= 10 && ys `mod` toBase >= 10 && ys `mod` toBase < 36 = fromDecimal''' (div ys toBase) ((toEnum((mod ys toBase) + 87)::Char) : ss)
+                         | ys `mod` toBase >= 36 = fromDecimal''' (div ys toBase) ((toEnum((mod ys toBase) + 29)::Char) : ss)
                          | ys < 10 = (show(mod ys toBase)++ss)
                          | ys == toBase || ys > toBase = fromDecimal''' (div ys toBase) (show(mod ys toBase)++ss)
                          | ys > 35 = fromDecimal''' (div ys toBase) ((toEnum((mod ys toBase) + 29)::Char) : ss)
