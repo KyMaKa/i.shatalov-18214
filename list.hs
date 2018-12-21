@@ -65,13 +65,8 @@ myTake n (x:xs) = if n /= 0 then x : myTake (n-1) xs
   else
     []
 
-
--- mySplitAt n (x:xs) = mySplitAt' n (x:xs)
- -- where
-   -- mySplitAt' n (x:xs) = if n > 1 then mySplitAt'' (x:[]) (x:xs)
-     -- else ys xs
-      -- where
-        -- mySplitAt'' ys (xs) = mySplitAt' (n - 1) xs
+mySplitAt:: Ord a => Int -> [a] -> ([a], [a])
+mySplitAt n (x:xs) = (myTake n (x:xs), myDrop n (x:xs))
 
 myNull:: Ord a => [a] -> Bool
 myNull xs = if xs == [] then True
@@ -85,12 +80,36 @@ myElem (y:xs) x = myElem' (y:xs)
     myElem' (y:xs) = if x == y then True
       else
         myElem' xs
-        
--- myFilter test xs = 
+
+myFilter:: Eq a => (a -> Bool) -> [a] -> [a]
+myFilter _ [] = []
+myFilter test (x:xs) = if (test x) then (x : myFilter' [])
+  else myFilter test xs
+    where
+      myFilter' ys = if xs /= [] then myFilter test xs
+  			else ys
 
 myMap:: Eq a => (a -> b) -> [a] -> [b]
 myMap _ [] = []
 myMap f (x:xs) = ((f x):myMap' [])
-	where 
+	where
 		myMap' ys = if xs /= [] then myMap f xs
 			else ys
+
+
+transpose':: Eq a => [[a]] -> [[a]]
+transpose' [] = []
+transpose' ([] : xs) = transpose' xs
+transpose' ys = (myMap head' ys) : transpose' (myMap tail' ys)
+  where
+    head':: [a] -> a
+    head' (x:_) = x
+    tail' (_:xs) = xs
+
+
+intersperse:: a -> [a] -> [a]
+intersperse _   [] = []
+intersperse sep (x:xs)  = x : help sep xs
+  where
+    help _ [] = []
+    help sep (x:xs) = sep : x : help sep xs
