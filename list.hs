@@ -100,11 +100,10 @@ myMap f (x:xs) = ((f x):myMap' [])
 transpose':: Eq a => [[a]] -> [[a]]
 transpose' [] = []
 transpose' ([] : xs) = transpose' xs
-transpose' ys = (myMap head' ys) : transpose' (myMap tail' ys)
-  where
-    head':: [a] -> a
-    head' (x:_) = x
-    tail' (_:xs) = xs
+transpose' ((y:ys):xs) = (y: [h | (h:_) <- xs]) : transpose' (ys:[t | (_:t) <- xs])
+{-  where
+    head' (h:_) = h
+    tail' (_:ss) = ss-}
 
 
 intersperse:: a -> [a] -> [a]
